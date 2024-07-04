@@ -1,0 +1,97 @@
+{% extends 'base.html' %}
+{% block title %}<title>Login here!</title>{% endblock %}
+{% block content %}
+<style>
+    .btn-color {
+        background-color: #0e1c36;
+        color: #fff;
+        padding: 10px 20px; /* Adjust button padding */
+        font-size: 16px; /* Adjust button font size */
+    }
+
+    .profile-image-pic {
+        height: 150px; /* Decrease profile image size */
+        width: 150px; /* Decrease profile image size */
+        object-fit: cover;
+    }
+
+    .cardbody-color {
+        background-color: #ebf2fa;
+        padding: 20px; /* Adjust card body padding */
+    }
+
+    a {
+        text-decoration: none;
+    }
+
+    /* Adjust form input sizes */
+    input[type="email"],
+    input[type="password"] {
+        padding: 10px;
+        font-size: 16px;
+    }
+</style>
+<br>
+<br>
+<br>
+<br>
+<div class="col-md-6 offset-md-3">
+   
+    <h2 class="text-center text-dark mt-5">Login Here!</h2>
+    <hr>
+<style>
+    /* Style for success message */
+.success {
+    color: green;
+}
+
+/* Style for error message */
+.error {
+    color: red;
+}
+
+/* Style for info message */
+.info {
+    color: blue;
+}
+
+</style>
+    {% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+            <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+        {% endfor %}
+    </ul>
+{% endif %}
+
+
+    <div class="card my-5">
+        <form method="post" class="card-body cardbody-color p-lg-4"> 
+            {% csrf_token %}
+            <div class="text-center">
+                <img src="https://cdn.pixabay.com/photo/2016/03/31/19/56/avatar-1295397__340.png" class="img-fluid profile-image-pic img-thumbnail rounded-circle my-3"
+                    width="150px" alt="profile"> <!-- Adjust image size -->
+            </div>
+
+            <div class="mb-3">
+                <input type="email" class="form-control" required name="email" id="Username" aria-describedby="emailHelp"
+                    placeholder="Email">
+            </div>
+
+            <div class="mb-3">
+                <input type="password" required name="password" class="form-control" id="password" placeholder="Password">
+            </div>
+
+            <div class="text-center">
+                <button type="submit" class="btn btn-color px-4 mb-3 w-100">Login</button> 
+            </div>
+
+            <div id="emailHelp" class="form-text text-center mb-3 text-dark">Not
+                Registered? <a href="{% url 'signup' %}" class="text-dark fw-bold"> Create an
+                    Account</a>
+            </div>
+
+        </form>
+    </div>
+</div>
+{% endblock %}

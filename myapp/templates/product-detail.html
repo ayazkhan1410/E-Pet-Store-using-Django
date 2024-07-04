@@ -1,0 +1,190 @@
+{% extends 'index.html' %}
+{% block title %}
+    <title>{{ product.product_name }}</title>
+{% endblock %}
+
+{% block content %}
+<style>
+body {
+    font-family: 'Arial', sans-serif; /* Changed font to Arial */
+    background-color: #f5f5f5;
+}
+
+.navbar-spacer {
+    height: 70px; /* Adjust based on the height of your navbar */
+}
+
+.main-section {
+    margin-top: 3rem; /* Added margin from the top */
+}
+
+.left-side-product-box {
+    border-radius: 12px;
+    overflow: hidden; /* Prevents image from overflowing */
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); /* Add shadow */
+}
+
+.left-side-product-box img {
+    width: 100%;
+    height: auto; /* Maintain aspect ratio */
+    transition: transform 0.3s ease;
+}
+
+.left-side-product-box img:hover {
+    transform: scale(1.05);
+}
+
+.sub-img {
+    margin-top: 15px; /* Increased margin */
+}
+
+.sub-img img {
+    width: 100px;
+    height: auto; /* Maintain aspect ratio */
+    border-radius: 12px;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Add shadow */
+}
+
+.sub-img img:hover {
+    transform: scale(1.05);
+}
+
+.right-side-pro-detail p.price-pro {
+    color: #E45641;
+    font-size: 28px;
+    font-weight: bold;
+    margin-top: 20px; /* Increased margin */
+}
+
+.animal-name {
+    font-size: 24px;
+    color: #333;
+    margin-bottom: 10px; /* Added margin */
+}
+
+.tag-section {
+    font-size: 20px;
+    color: #5D4C46;
+}
+
+.btn {
+    font-size: 18px;
+    padding: 12px 20px; /* Increased padding */
+    border-radius: 8px;
+    text-transform: uppercase; /* Make text uppercase */
+}
+
+.btn-danger {
+    background-color: #E45641;
+    border: none;
+}
+
+.btn-success {
+    background-color: #28a745;
+    border: none;
+}
+
+.messages {
+    list-style-type: none;
+    padding: 0;
+}
+.messages li {
+    margin-bottom: 10px;
+    border-radius: 5px;
+}
+
+.btn-danger:hover, .btn-success:hover {
+    opacity: 0.8;
+}
+</style>
+
+<div class="navbar-spacer"></div>
+
+<div class="container main-section">
+    <div class="col-lg-10 border p-4 bg-white mx-auto shadow-lg rounded"> 
+        <div class="row heading pl-3 pt-4 pb-3">
+            <h2><center>Best E-Store </center></h2>
+            <hr>
+        </div>
+
+        <!-- Display messages -->
+        {% if messages %}
+        <div class="col-lg-12">
+            <ul class="messages">
+                {% for message in messages %}
+                <li class="alert alert-{{ message.tags }}{% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %} alert-danger{% endif %}" role="alert">
+                    {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}<strong>Important:</strong> {% endif %}
+                    {{ message }}
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+        {% endif %}
+
+        <div class="row">
+            <div class="col-lg-5 left-side-product-box pb-5">
+                <!-- Display the main product image -->
+                <img id="mainImage" src="{{ product.product_image.url }}">
+
+                <!-- Display the feature images dynamically -->
+                <div class="sub-img d-flex justify-content-between">
+                    {% for image in images %}
+                        <img src="{{ image.image.url }}" onclick="changeMainImage('{{ image.image.url }}')">
+                    {% endfor %}
+                    <img src="{{ product.product_image.url }}" onclick="changeMainImage('{{ product.product_image.url }}')">
+                </div>
+            </div>
+
+            <div class="col-lg-7">
+                <div class="right-side-pro-detail border p-4 rounded">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <h5 class="mb-3">Name</h5>
+                            <p class="price-pro h4">{{ product.product_name }}</p>
+                            <hr>
+                        </div>
+                        <div class="col-lg-12">
+                            <h5 class="mb-3">Price</h5>
+                            <p class="price-pro h4">${{ product.discounted_price }}</p>
+                            <hr>
+                        </div>
+                        <div class="col-lg-12">
+                            <h5 class="mb-3">Animal Detail</h5>
+                            <p>{{ product.product_description }}</p>
+                            <hr>
+                        </div>
+                        <div class="col-lg-12">
+                            <p class="tag-section mb-0"><strong>Tag:</strong> {{ product.category_name.category_name }}</p>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-12 mt-4">
+                        <div class="row">
+                            
+                            <div class="row justify-content-center"> <!-- Center align buttons -->
+                                <div class="col-lg-6 pb-2">
+                                    <a href="{% url 'add-to-cart' product.slug %}" class="btn btn-danger w-100">Add To Cart</a>
+                                </div>
+    
+
+                            <!-- <div class="col-lg-6">
+                                <a href="{% url 'shipping-address' %}" class="btn btn-success w-100">Proceed to Shipping</a>
+                            </div> -->
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>    
+    </div>
+</div>
+
+<script>
+    function changeMainImage(imageUrl) {
+        document.getElementById('mainImage').src = imageUrl;
+    }
+</script>
+
+{% endblock %}

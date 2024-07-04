@@ -1,0 +1,28 @@
+{% extends 'index.html' %}
+{% block title %}<title> Thank you for your order</title>{% endblock %}
+
+{% block content %}
+<br>
+<br>
+<br>
+<br>
+  <div class="row justify-content-center mt-5">
+    <div class="col-md-8">
+      <div class="card shadow-lg p-3 mb-5 bg-body rounded">
+        <div class="card-body">
+          <div class="text-center">
+            <i class="fa fa-check-circle fa-5x text-success mb-4"></i>
+            <h2 class="card-title mb-4">Thank You!</h2>
+            <p class="card-text lead">Your order has been successfully placed.</p>
+          </div>
+
+          <hr>
+          
+          <div class="text-center mt-4">
+            <a href="/" class="btn btn-primary">Back to Home</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

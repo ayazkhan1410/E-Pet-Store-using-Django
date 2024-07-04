@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+{% block title%}<title>Shipping Address</title>{% endblock %}
+{% block content %}
+
+<br>
+<br>
+<br>
+  <div class="row justify-content-center mt-5">
+    <div class="col-md-8 mb-4">
+      <div class="card mb-4 shadow">
+        <div class="card-header py-3">
+          <h5 class="mb-0">Billing details</h5>
+        </div>
+        <div class="card-body">
+          <form method="post">
+            {% csrf_token %}
+            <!-- 2 column grid layout with text inputs for the first and last names -->
+
+            <div class="row mb-4">
+              <div class="col">
+                <div data-mdb-input-init class="form-outline">
+                  <input type="text" placeholder="First Name" required name="first_name" id="form7Example1" class="form-control" />
+                  <label class="form-label"  for="form7Example1"></label>
+                </div>
+              </div>
+
+              <div class="col">
+                <div data-mdb-input-init class="form-outline">
+                  <input type="text"  placeholder="Last Name" required name="last_name" id="form7Example2" class="form-control" />
+                  <label class="form-label" for="form7Example2"></label>
+                </div>
+              </div>
+            </div>
+  
+            <!-- Email input -->
+            <div data-mdb-input-init class="form-outline mb-4">
+              <input type="email" placeholder="Email" required name="email" id="form7Example5" class="form-control" />
+              <label class="form-label" for="form7Example5"></label>
+            </div>
+  
+            <!-- Number input -->
+            <div data-mdb-input-init class="form-outline mb-4">
+              <input type="number" placeholder="Phone" required name="phone_number" id="form7Example6" class="form-control" />
+              <label class="form-label" for="form7Example6"></label>
+            </div>
+  
+            <!-- Message input -->
+            <div data-mdb-input-init class="form-outline mb-4">
+              <textarea class="form-control" placeholder="Address" required name="address" id="form7Example7" rows="4"></textarea>
+              <label class="form-label" for="form7Example7"></label>
+            </div>
+  
+            <!-- Checkbox -->
+            <a href="{% url 'create_checkout_session' %}"  data-mdb-button-init data-mdb-ripple-init class="btn btn-primary btn-lg btn-block">
+              Make purchase
+            </a>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+{% endblock %}
